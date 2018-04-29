@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SoftBalance</string>
+    <string name="hint_search">Search</string>
+    <string name="api_key">ad0a54100d47d15b572d18c42c9e7ef4</string>
+</resources>
