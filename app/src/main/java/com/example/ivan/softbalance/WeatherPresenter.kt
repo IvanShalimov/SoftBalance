@@ -1,35 +1,42 @@
 package com.example.ivan.softbalance
 
-import com.example.ivan.softbalance.R.id.list
+import android.util.Log
 import com.example.ivan.softbalance.model.Response
-import com.example.ivan.softbalance.model.Response.X
 import com.example.ivan.softbalance.model.WeatherItem
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
-import rx.Observer
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 
-class WeatherPresenter: MvpBasePresenter<WeatherView>(),Observer<Response> {
-
-    val parser:Parser = Parser()
-
-    override fun onError(e: Throwable?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class WeatherPresenter: MvpBasePresenter<WeatherView>(), Observer<Response> {
+    override fun onError(e: Throwable) {
+        Log.d("Test","onError = ${e.message}")
     }
 
-    override fun onNext(t: Response?) {
+    override fun onNext(t: Response)
+    {
+        Log.d("Test","onNext")
         ifViewAttached {
-            it.showNewData(parser.parse(t!!))
+            it.showNewData(parser.parse(t))
         }
     }
 
-    override fun onCompleted() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onComplete() {
+
     }
+
+    override fun onSubscribe(d: Disposable) {
+
+    }
+
+    val parser:Parser = Parser()
 
     val interactor:WeatherInteractor = WeatherInteractor()
 
     fun search(city:String){
-        if(city.length>3)
-            interactor.search(city)
+        if(city.length>5)
+            interactor
+                    .search(city)
+                    ?.subscribe(this)
     }
 }
 

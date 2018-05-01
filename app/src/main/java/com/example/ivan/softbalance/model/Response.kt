@@ -15,16 +15,16 @@ data class Response(
         val weather: List<Weather>,
         val clouds: Clouds,
         val wind: Wind,
-        //val rain: Rain,
+        val rain: Rain,
         val sys: Sys,
         val dt_txt: String //2018-05-04 18:00:00
     ) {
         data class Sys(
             val pod: String //d
         )
-/*        data class Rain(){
+        class Rain{
 
-        }*/
+        }
         data class Clouds(
             val all: Int //48
         )
@@ -40,7 +40,7 @@ data class Response(
             val sea_level: Double, //1034.12
             val grnd_level: Double, //940.69
             val humidity: Int, //61
-            val temp_kf: Int //0
+            val temp_kf: Double //0
         )
         data class Weather(
             val id: Int, //802

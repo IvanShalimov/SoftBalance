@@ -2,21 +2,27 @@ package com.example.ivan.softbalance
 
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import com.example.ivan.softbalance.model.WeatherItem
 import com.hannesdorfmann.mosby3.mvp.viewstate.MvpViewStateActivity
 import kotlinx.android.synthetic.main.content.*
 
 class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, WeatherViewState>(),
-                    TextWatcher,WeatherView{
+                    TextWatcher,WeatherView, View.OnClickListener{
+    override fun onClick(v: View?) {
+        presenter.search(input_search.text.toString())
+    }
 
     companion object {
         const val STATE = "state"
         const val DATA = "data"
     }
+
+    private val adapter: WeatherListAdapter = WeatherListAdapter()
 
     override fun onNewViewStateInstance() {
 
@@ -34,25 +40,27 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
         list.adapter = adapter
 
         restoreData(savedInstanceState)
-
-        input_search.addTextChangedListener(this)
+        search_button.setOnClickListener(this)
+        //input_search.addTextChangedListener(this)
     }
 
     private fun restoreData(saved:Bundle?){
 
         if (saved != null){
             adapter.list = saved.getParcelableArrayList(DATA)
-            list.layoutManager.onRestoreInstanceState(saved.getParcelable( STATE))
+            list.layoutManager.onRestoreInstanceState(saved.getParcelable(STATE))
         }
 
     }
 
-    private val adapter: WeatherListAdapter = WeatherListAdapter()
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        outState?.putParcelable( STATE,list.layoutManager.onSaveInstanceState())
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        Log.d("Test","onSaveInstanceState")
+        outState?.putParcelable(STATE,list.layoutManager.onSaveInstanceState())
         outState?.putParcelableArrayList(DATA,adapter.list)
-        super.onSaveInstanceState(outState, outPersistentState)
+        Log.d("Test","save list is null - "+(adapter.list == null))
+        super.onSaveInstanceState(outState)
     }
 
     override fun afterTextChanged(s: Editable?) {

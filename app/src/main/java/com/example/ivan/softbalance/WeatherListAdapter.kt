@@ -9,6 +9,7 @@ class WeatherListAdapter: RecyclerView.Adapter<WeatherListViewHolder>() {
 
     var list = ArrayList<WeatherItem>()
     set(value) {
+        field = value
         notifyDataSetChanged()
     }
 
