@@ -16,6 +16,7 @@ class WeatherPresenter(private val parser:Parser, private val interactor:Weather
     override fun onNext(t: Response)
     {
         ifViewAttached {
+            //parse возможно надо вынести в интерактор?
             it.showNewData(parser.parse(t))
             it.showProgressDialog(false)
         }
@@ -32,6 +33,7 @@ class WeatherPresenter(private val parser:Parser, private val interactor:Weather
     fun search(city:String){
         ifViewAttached {
             it.showProgressDialog(true)
+            //Вынести проверку тоже в интерактор?
             if(city.length>3)
                 interactor
                         .search(city)
