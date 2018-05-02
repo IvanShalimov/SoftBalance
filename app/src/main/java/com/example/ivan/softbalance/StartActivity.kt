@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
+import com.afollestad.materialdialogs.MaterialDialog
 import com.example.ivan.softbalance.model.WeatherItem
 import com.hannesdorfmann.mosby3.mvp.viewstate.MvpViewStateActivity
 import kotlinx.android.synthetic.main.content.*
@@ -22,7 +22,15 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
         const val DATA = "data"
     }
 
-    private val adapter: WeatherListAdapter = WeatherListAdapter()
+    private val adapter: WeatherListAdapter by lazy { WeatherListAdapter() }
+
+    private val dialog:MaterialDialog by lazy {
+        MaterialDialog.Builder(this)
+                .title("Wait")
+                .content("Work doing...")
+                .progress(true, 0)
+                .show()
+    }
 
     override fun onNewViewStateInstance() {
 
@@ -45,7 +53,6 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
     }
 
     private fun restoreData(saved:Bundle?){
-
         if (saved != null){
             adapter.list = saved.getParcelableArrayList(DATA)
             list.layoutManager.onRestoreInstanceState(saved.getParcelable(STATE))
@@ -53,13 +60,9 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
 
     }
 
-
-
     override fun onSaveInstanceState(outState: Bundle?) {
-        Log.d("Test","onSaveInstanceState")
         outState?.putParcelable(STATE,list.layoutManager.onSaveInstanceState())
         outState?.putParcelableArrayList(DATA,adapter.list)
-        Log.d("Test","save list is null - "+(adapter.list == null))
         super.onSaveInstanceState(outState)
     }
 
@@ -77,5 +80,9 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
 
     override fun showNewData(data:ArrayList<WeatherItem>){
         adapter.list = data
+    }
+
+    override fun showProgressDialog(flag:Boolean) {
+        if (flag) dialog.show() else dialog.dismiss()
     }
 }

@@ -14,9 +14,9 @@ class WeatherPresenter: MvpBasePresenter<WeatherView>(), Observer<Response> {
 
     override fun onNext(t: Response)
     {
-        Log.d("Test","onNext")
         ifViewAttached {
             it.showNewData(parser.parse(t))
+            it.showProgressDialog(false)
         }
     }
 
@@ -28,15 +28,19 @@ class WeatherPresenter: MvpBasePresenter<WeatherView>(), Observer<Response> {
 
     }
 
-    val parser:Parser = Parser()
+    private val parser:Parser = Parser()
 
-    val interactor:WeatherInteractor = WeatherInteractor()
+    private val integrator:WeatherInteractor = WeatherInteractor()
 
     fun search(city:String){
-        if(city.length>5)
-            interactor
-                    .search(city)
-                    ?.subscribe(this)
+        ifViewAttached {
+            it.showProgressDialog(true)
+            if(city.length>3)
+                integrator
+                        .search(city)
+                        ?.subscribe(this)
+        }
+
     }
 }
 
