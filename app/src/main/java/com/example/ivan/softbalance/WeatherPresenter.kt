@@ -7,7 +7,8 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
-class WeatherPresenter: MvpBasePresenter<WeatherView>(), Observer<Response> {
+class WeatherPresenter(private val parser:Parser, private val interactor:WeatherInteractor): MvpBasePresenter<WeatherView>(), Observer<Response> {
+
     override fun onError(e: Throwable) {
         Log.d("Test","onError = ${e.message}")
     }
@@ -28,15 +29,11 @@ class WeatherPresenter: MvpBasePresenter<WeatherView>(), Observer<Response> {
 
     }
 
-    private val parser:Parser = Parser()
-
-    private val integrator:WeatherInteractor = WeatherInteractor()
-
     fun search(city:String){
         ifViewAttached {
             it.showProgressDialog(true)
             if(city.length>3)
-                integrator
+                interactor
                         .search(city)
                         ?.subscribe(this)
         }
@@ -51,7 +48,7 @@ class Parser{
         val iterate = response.list.listIterator()
         while (iterate.hasNext()) {
             val item  = iterate.next()
-            returnList.add(WeatherItem(item.dt_txt,"${item.main.temp - 273} C"))
+            returnList.add(WeatherItem(item.dt_txt,"${(item.main.temp - 273).toInt()} C"))
         }
 
         return returnList

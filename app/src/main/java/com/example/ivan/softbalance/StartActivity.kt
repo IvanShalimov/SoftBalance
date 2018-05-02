@@ -7,6 +7,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
+import com.example.ivan.softbalance.dagger.DaggerWeatherComponent
+import com.example.ivan.softbalance.dagger.WeatherComponent
 import com.example.ivan.softbalance.model.WeatherItem
 import com.hannesdorfmann.mosby3.mvp.viewstate.MvpViewStateActivity
 import kotlinx.android.synthetic.main.content.*
@@ -23,6 +25,9 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
     }
 
     private val adapter: WeatherListAdapter by lazy { WeatherListAdapter() }
+    private val component: WeatherComponent by lazy {
+        DaggerWeatherComponent.create()
+    }
 
     private val dialog:MaterialDialog by lazy {
         MaterialDialog.Builder(this)
@@ -36,7 +41,7 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
 
     }
 
-    override fun createPresenter() = WeatherPresenter()
+    override fun createPresenter() = component.getPresenter()
 
     override fun createViewState() = WeatherViewState()
 
@@ -50,6 +55,7 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
         restoreData(savedInstanceState)
         search_button.setOnClickListener(this)
         //input_search.addTextChangedListener(this)
+
     }
 
     private fun restoreData(saved:Bundle?){
