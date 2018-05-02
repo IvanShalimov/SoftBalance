@@ -51,7 +51,7 @@ class Parser{
         val iterate = response.list.listIterator()
         while (iterate.hasNext()) {
             val item  = iterate.next()
-            returnList.add(WeatherItem(item.dt_txt,"${item.main.temp}"))
+            returnList.add(WeatherItem(item.dt_txt,"${item.main.temp - 273} C"))
         }
 
         return returnList
