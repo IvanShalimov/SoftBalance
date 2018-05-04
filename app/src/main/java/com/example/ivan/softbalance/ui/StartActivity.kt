@@ -1,20 +1,19 @@
 package com.example.ivan.softbalance.ui
 
-
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.example.ivan.softbalance.App
 import com.example.ivan.softbalance.R
-import com.example.ivan.softbalance.presenter.WeatherPresenter
 import com.example.ivan.softbalance.model.WeatherItem
+import com.example.ivan.softbalance.presenter.WeatherPresenter
 import com.hannesdorfmann.mosby3.mvp.viewstate.MvpViewStateActivity
 import kotlinx.android.synthetic.main.content.*
 
 class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, WeatherViewState>(),
                      WeatherView, View.OnClickListener{
+
 
     override fun onClick(v: View?) {
         viewState.state = list.layoutManager.onSaveInstanceState()
@@ -22,7 +21,6 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
     }
 
     private val adapter: WeatherListAdapter by lazy { WeatherListAdapter() }
-
     private val dialog:MaterialDialog by lazy {
         MaterialDialog.Builder(this)
                 .title(R.string.wait)
@@ -54,7 +52,8 @@ class StartActivity : MvpViewStateActivity<WeatherView, WeatherPresenter, Weathe
         super.onSaveInstanceState(outState)
     }
 
-    override fun showNewData(data:ArrayList<WeatherItem>,state: Parcelable?){
+
+    override fun showNewData(data: ArrayList<WeatherItem>) {
         adapter.list = data
         list.layoutManager.onRestoreInstanceState(viewState.state)
     }

@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.ivan.softbalance.R
+import com.example.ivan.softbalance.model.Response
 import com.example.ivan.softbalance.model.WeatherItem
 
 class WeatherListAdapter: RecyclerView.Adapter<WeatherListViewHolder>() {
 
     var list = ArrayList<WeatherItem>()
-
     set(value) {
         field = value
         notifyDataSetChanged()

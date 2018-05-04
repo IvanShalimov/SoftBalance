@@ -7,4 +7,5 @@
     <string name="temperature">Temperature</string>
     <string name="wait">Wait</string>
     <string name="work_doing">Work doing...</string>
+    <string name="url">http://api.openweathermap.org/</string>
 </resources>
