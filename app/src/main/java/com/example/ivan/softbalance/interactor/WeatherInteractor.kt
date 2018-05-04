@@ -1,5 +1,6 @@
-package com.example.ivan.softbalance
+package com.example.ivan.softbalance.interactor
 
+import com.example.ivan.softbalance.network.ApiInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
@@ -12,7 +13,7 @@ class WeatherInteractor {
         const val BASE_URL="http://api.openweathermap.org/"
     }
 
-    private var apiService:ApiInterface? = null
+    private var apiService: ApiInterface? = null
 
     init {
         val retrofit = Retrofit.Builder()

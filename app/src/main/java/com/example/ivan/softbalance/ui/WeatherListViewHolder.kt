@@ -1,8 +1,9 @@
-package com.example.ivan.softbalance
+package com.example.ivan.softbalance.ui
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import com.example.ivan.softbalance.R
 import com.example.ivan.softbalance.model.WeatherItem
 
 class WeatherListViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){

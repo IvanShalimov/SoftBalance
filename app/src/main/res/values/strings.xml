@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">SoftBalance</string>
-    <string name="hint_search">Search</string>
+
     <string name="api_key">ad0a54100d47d15b572d18c42c9e7ef4</string>
+    <string name="search">Поиск</string>
+    <string name="date">Date:</string>
+    <string name="temperature">Temperature</string>
+    <string name="wait">Wait</string>
+    <string name="work_doing">Work doing...</string>
 </resources>

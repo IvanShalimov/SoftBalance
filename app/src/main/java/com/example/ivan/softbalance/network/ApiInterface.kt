@@ -1,4 +1,4 @@
-package com.example.ivan.softbalance
+package com.example.ivan.softbalance.network
 
 import com.example.ivan.softbalance.model.Response
 import io.reactivex.Observable

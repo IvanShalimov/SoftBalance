@@ -1,13 +1,15 @@
-package com.example.ivan.softbalance
+package com.example.ivan.softbalance.presenter
 
 import android.util.Log
+import com.example.ivan.softbalance.interactor.WeatherInteractor
 import com.example.ivan.softbalance.model.Response
 import com.example.ivan.softbalance.model.WeatherItem
+import com.example.ivan.softbalance.ui.WeatherView
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
-class WeatherPresenter(private val parser:Parser, private val interactor:WeatherInteractor): MvpBasePresenter<WeatherView>(), Observer<Response> {
+class WeatherPresenter(private val parser: Parser, private val interactor: WeatherInteractor): MvpBasePresenter<WeatherView>(), Observer<Response> {
 
     override fun onError(e: Throwable) {
         Log.d("Test","onError = ${e.message}")

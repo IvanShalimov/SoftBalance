@@ -1,8 +1,8 @@
 package com.example.ivan.softbalance.dagger
 
-import com.example.ivan.softbalance.Parser
-import com.example.ivan.softbalance.WeatherInteractor
-import com.example.ivan.softbalance.WeatherPresenter
+import com.example.ivan.softbalance.presenter.Parser
+import com.example.ivan.softbalance.interactor.WeatherInteractor
+import com.example.ivan.softbalance.presenter.WeatherPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -10,8 +10,8 @@ import dagger.Provides
 class WeatherModule {
 
     @Provides
-    fun providePresenter(parser:Parser,interactor: WeatherInteractor)
-            = WeatherPresenter(parser,interactor)
+    fun providePresenter(parser: Parser, interactor: WeatherInteractor)
+            = WeatherPresenter(parser, interactor)
 
     @Provides
     fun provideParser() = Parser()

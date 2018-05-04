@@ -22,9 +22,7 @@ data class Response(
         data class Sys(
             val pod: String //d
         )
-        class Rain{
-
-        }
+        class Rain
         data class Clouds(
             val all: Int //48
         )
